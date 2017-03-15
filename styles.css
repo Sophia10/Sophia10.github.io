@@ -1,0 +1,22 @@
+/*First style sheet*/
+body {
+font-family: sans-serif;
+}
+h1 {
+	color: darkblue;
+	font-family: serif;
+}
+h2,h3 {
+	color: purple;
+	font-family: serif;
+}
+h2 {
+	font-style: italic;
+}
+figure {
+	border: 2px dotted blue;
+	padding: 1.5em;
+}
+table {
+width:100%
+}
