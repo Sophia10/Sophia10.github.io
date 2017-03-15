@@ -1,10 +1,10 @@
 /*First style sheet*/
 body {
-font-family: sans-serif;
+font-family: fantasy;
 }
 h1 {
 	color: darkblue;
-	font-family: serif;
+	font-family: sans-serif;
 }
 h2,h3 {
 	color: purple;
@@ -19,4 +19,15 @@ figure {
 }
 table {
 width:100%
+}
+/*classes are started with a dot*/
+.center {
+	text-align: center;
+	color: darkblue;
+	width: 50%
+}
+/*IDs are started with a # */
+#figure1 {
+	background-color: yellow;
+	width: 50%;
 }
