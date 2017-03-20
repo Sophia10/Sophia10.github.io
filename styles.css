@@ -1,6 +1,11 @@
 /*First style sheet*/
+* {
+	background-color: aliceblue;
+	font-family: Cambria, fantasy;
+
+}
 body {
-font-family: fantasy;
+font-size: medium;
 }
 h1 {
 	color: darkblue;
@@ -20,14 +25,28 @@ figure {
 table {
 width:100%
 }
+ul li ul {
+	font-size: small;
+}
+a:nth-child(3){
+	text-decoration: none;
+	color: rgb(0, 100, 0);
+}
 /*classes are started with a dot*/
 .center {
 	text-align: center;
 	color: darkblue;
-	width: 50%
+}
+.credits {
+	font-size:10px;
+	background-color: darkgray;
+}
+.infobox{
+	background-color: #7fffd4;
+	border: 4px dashed darkcyan;
 }
 /*IDs are started with a # */
 #figure1 {
 	background-color: yellow;
-	width: 50%;
+	width: 90%;
 }

@@ -3,11 +3,7 @@
         <title>First HTML site</title>
 		<meta charset="UTF-8">
 		<link rel="stylesheet" href="styles.css"/>
-		<style>
-		table {
-		width:50%
-		}
-		</style>
+
 </head>
 <body>
 <h1>HTML is easy</h1>
@@ -16,13 +12,13 @@
 <h2>What is HTML?</h2>
 <table>
 <tr>
-<td><p style="align:center; font-family:Calibri">HTML is short for HyperText Markup Language.<br/> <!-- br ist ein Einzeltag -->
+<td><p>HTML is short for HyperText Markup Language.<br/> <!-- br ist ein Einzeltag -->
     It is the standard markup language for creating web pages and web applications. [...]
     Web browsers receive HTML documents from a webserver or from local storage and render them into multimedia web pages.
     HTML describes the structure of a web page semantically and originally included cues for the appearance of the document.<br/>
 Source: <a href="https://en.wikipedia.org/wiki/HTML">Wikipedia</a> </p></td>
     <td><figure><img src="HTML5.png" alt="HTML5 logo" height="150">
-	<figcaption style="font-size: 10px; align: center">Logo of HTML5</figcaption>
+	<figcaption>Logo of HTML5</figcaption>
 	</figure>
 	</td>
 </tr>
@@ -32,7 +28,8 @@ Source: <a href="https://en.wikipedia.org/wiki/HTML">Wikipedia</a> </p></td>
     provide enough possibilities. I will also need it for this course to do some web mapping.
     HTML, in combination with CSS and JavaScript, is <strong>still one of the most important technologies of the internet</strong>.</p>
 <h2>How does HTML work?</h2>
-<p style="font-size: 11px;background-color: lightgoldenrodyellow; width:50%">HTML divides every page into a head and body. All HTML elements are stated in angle brackets (&lt;...&gt;). The most important are:</p>
+<p >HTML divides every page into a head and body. All HTML elements are stated in angle brackets (&lt;...&gt;). The most important are:</p>
+<div class="infobox">
 <ul>
     <li> <i>&lt;head&gt;...&lt;/head&gt;</i>: indicates the header of the page</li>
     <li> <i>&lt;body&gt;...&lt;/body&gt;</i>: forms the main part of the page
@@ -44,8 +41,9 @@ Source: <a href="https://en.wikipedia.org/wiki/HTML">Wikipedia</a> </p></td>
     <li> <i>&lt;!-- ... --&gt;</i>: comments can only be seen in the HTML file, not on the website</li>
     <li>and many more</li>
 </ul>
+</div>
 <h2>How can I learn HTML?</h2>
-<p style="width:50%">There are many ways to learn HTML. Books, websites, apps, videos, learning by doing,... Here are my favorites</p>
+<p >There are many ways to learn HTML. Books, websites, apps, videos, learning by doing,... Here are my favorites</p>
 <ol>
     <li><b>App and website</b>: <a href="https://www.sololearn.com/">SoloLearn</a></li>
     <li><b>Website</b>: <a href="https://www.codecademy.com">CodeCademy</a></li>
@@ -54,9 +52,9 @@ Source: <a href="https://en.wikipedia.org/wiki/HTML">Wikipedia</a> </p></td>
 </ol>
 The result can look like this:<br/>
 	<figure id="figure1"><img src="code-1076533_640.jpg" alt="Code on screen"/> <!--Id can only be used once -->
-	<figcaption style="font-size: 10px; align: center"></figcaption></figure>
-<p style="font-size:smaller">Page created by S. Paul <br/>
-Validated with <a href="https://validator.nu/">https://validator.nu</a></p>
+	<figcaption>HTML code on screen</figcaption></figure>
+<p class="credits">Page created by S. Paul <br/>
+Validated with <a class="credits" href="https://validator.nu/">https://validator.nu</a></p>
 
 </body>
 </html>
