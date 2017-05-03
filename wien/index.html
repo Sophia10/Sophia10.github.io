@@ -16,6 +16,7 @@
     <script src="wanderwege_linien.json.js"></script>
     <script src="maerkte_flaechen.json.js"></script>
     <script src="myGeoJSON.json.js"></script>
+    <script src="leaflet-hash.js"></script>
 
     <style>
         h1 {
@@ -252,6 +253,9 @@
         // Ausschnitt setzen
         // TODO: Ausschnitt auf Stationen des Stadtpaziergangs setzen
         map.fitBounds(punkteSpaziergang.getBounds())
+
+        // Add position to URL with LeafletHash
+        var hash = new L.Hash(map);
     </script>
 
 </body>
