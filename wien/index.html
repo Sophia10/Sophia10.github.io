@@ -16,7 +16,16 @@
     <script src="wanderwege_linien.json.js"></script>
     <script src="maerkte_flaechen.json.js"></script>
     <script src="myGeoJSON.json.js"></script>
+
+    <!-- Plugins -->
     <script src="leaflet-hash.js"></script>
+
+    <script src="leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="MarkerCluster.css"/>
+    <link rel="stylesheet" href="MarkerCluster.Default.css"/>
+
+    <link rel="stylesheet" href="leaflet-routing-machine.css" />
+    <script src="leaflet-routing-machine.js"></script>
 
     <style>
         h1 {
@@ -104,14 +113,15 @@
             zoom: 12
         });
 
+        // make markerCluster Group for Plugin MarkerCluster
+        var cluster_group = L.markerClusterGroup();
+
         // Add geolocation, show popup and center map
         /*map.locate({setView: true, maxZoom: 16});*/
         function onLocationFound(e) {
             var radius = e.accuracy / 2;
-
             L.marker(e.latlng).addTo(map)
                 .bindPopup("Sie befinden sich in einem Radius von " + Math.round(radius) + " Metern von diesem Punkt").openPopup();
-
             L.circle(e.latlng, radius).addTo(map);
         }
 
@@ -165,8 +175,6 @@
                     iconSize: [20, 20],
                     iconAnchor: [12, 41],
                     popupAnchor: [1, -34],
-                    //shadowSize: [20, 20],
-                    //shadowUrl: 'https://unpkg.com/leaflet@1.0.3/dist/images/marker-shadow.png',
                     iconUrl: 'http://www.data.wien.gv.at/icons/citybike.png'
                 })
             });
@@ -176,7 +184,8 @@
             var bikeInfo = "<h4>"+ layer.feature.properties.STATION + "</h4>"
                 + "Bezirk: " + layer.feature.properties.BEZIRK+'</br>';
             return bikeInfo;
-        }); //.addTo(map);
+        }).addTo(cluster_group);
+        map.addLayer(cluster_group);
 
         // GeoJSON Daten der Wanderwege laden, nach Typ einfärben und Popup erstellen
         var linienWanderwege = L.geoJSON(window.wanderwegeLinien, {
@@ -225,12 +234,11 @@
         }); //.addTo(map);
 
         // Eigenes GeoJSON
-        L.geoJSON(window.my_geojson, {
-            // TODO: Citybike Marker als Icons implementieren (https://www.data.gv.at/katalog/dataset/770f9237-9a7f-45e4-9647-aacf35ddee06)
-
-        }).bindPopup(function(layer){
+        L.geoJSON(window.my_geojson).bindPopup(function(layer){
             return layer.feature.properties.color;
-        }).addTo(map);
+        }); //.addTo(map);
+
+
         // WMTS-Layer Auswahl und Marker Auswahl Overlay hinzufügen
         // TODO: WMTS-Layer Wien, Luftbild 1956 zur Hintergrundlayerauswahl hinzufügen
         // TODO: GeoJSON Layer Märkte ein/aus Overlay hinzufügen
@@ -254,8 +262,17 @@
         // TODO: Ausschnitt auf Stationen des Stadtpaziergangs setzen
         map.fitBounds(punkteSpaziergang.getBounds())
 
-        // Add position to URL with LeafletHash
+        // Add current position to URL with LeafletHash from https://github.com/mlevans/leaflet-hash
         var hash = new L.Hash(map);
+
+        // Add routing service Leaflet Routing Machine from http://www.liedman.net/leaflet-routing-machine/
+        L.Routing.control({
+            waypoints: [
+                L.latLng(47.263, 11.394),
+                L.latLng(48.227, 16.326)
+            ]
+        }).addTo(map);
+
     </script>
 
 </body>
