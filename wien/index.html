@@ -87,6 +87,17 @@
             center: [48.20833, 16.373064],
             zoom: 12
         });
+        map.locate({setView: true, maxZoom: 16});
+        function onLocationFound(e) {
+            var radius = e.accuracy / 2;
+
+            L.marker(e.latlng).addTo(map)
+                .bindPopup("Sie befinden sich innerhalb von " + radius + " Metern von diesem Punkt").openPopup();
+
+            L.circle(e.latlng, radius).addTo(map);
+        }
+
+        map.on('locationfound', onLocationFound);;
 
         // Maßstab hinzufügen
         L.control.scale({
