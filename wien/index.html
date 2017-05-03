@@ -7,6 +7,8 @@
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+    <!-- Einbindung viewpoint -->
+    <meta name="viewpoint" content="decive-width, initial scale = 1.0, user-scalable = no"/>
 
     <!-- GeoJSON Datenskripts -->
     <script src="stadtspaziergang_punkte.json.js"></script>
@@ -19,25 +21,37 @@
             text-align: center;
         }
 
+        /*
         #wienMap {
             width: 900px;
             height: 600px;
             border: 1px solid black;
             margin: auto;
+            }*/
+        body{
+            padding: 0;
+            margin: 0;
+        }
+        html, body, p, #wienMap{
+            /*vh für Fensterhöhe und vw für Fensterbreite*/
+            height: 100vh;
+            width: 100vw;
         }
     </style>
 </head>
 
 <body>
-    <h1>Stadtspaziergang Wien</h1>
+    <!-- crashes the full screen mode of 100vh and 100wh
+    <h1>Stadtspaziergang Wien</h1>-->
 
     <div id="wienMap"></div>
+    <!--
     <h3>Quelle Geodaten</h3>
     <p>
     Stadt Wien – <a href="http://data.wien.gv.at/">data.wien.gv.at</a><br>
     <a href="">Web Feature Service (WFS) - Wien</a><br>
     CC BY 3.0 Österreich<br>
-    </p>
+    </p> -->
 
     <script>
         console.log(window.spaziergangPunkte);
@@ -87,17 +101,19 @@
             center: [48.20833, 16.373064],
             zoom: 12
         });
+
+        // Add geolocation, show popup and center map
         map.locate({setView: true, maxZoom: 16});
         function onLocationFound(e) {
             var radius = e.accuracy / 2;
 
             L.marker(e.latlng).addTo(map)
-                .bindPopup("Sie befinden sich innerhalb von " + radius + " Metern von diesem Punkt").openPopup();
+                .bindPopup("Sie befinden sich in einem Radius von " + Math.round(radius) + " Metern von diesem Punkt").openPopup();
 
             L.circle(e.latlng, radius).addTo(map);
         }
 
-        map.on('locationfound', onLocationFound);;
+        map.on('locationfound', onLocationFound);
 
         // Maßstab hinzufügen
         L.control.scale({
@@ -185,9 +201,13 @@
         var maerkteFlaechen = L.geoJSON(window.maerkteFlaechen, {
             style: function(feature) {
                 var farbe = "";
-                if (feature.properties.INFOS_NACHHALTIG == "-") {
+                if (feature.properties.INFOS_NACHHALTIG === "-") {
                     farbe = "red";
-                } else {
+                }
+                else if (featur.properties.INFOS_NACHHALTIG === "Produzentenmarkt"){
+                    farbe = "lime";
+                }
+                else {
                     farbe = "green";
                 }
                 return {
