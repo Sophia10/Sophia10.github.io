@@ -59,8 +59,8 @@
     // Karte definieren
     var map = L.map('map', {
         layers: [layers.geolandbasemap],
-        center : [47.654, 13.370],
-        zoom : 8
+        center : [47.080833, 12.425556],
+        zoom : 11
     });
 
     // Maßstab hinzufügen
@@ -85,6 +85,23 @@
 
     // add geoJSON
     L.geoJSON(window.etappeO5).addTo(map);
+
+    //add huts
+    var hutIcon = L.icon({
+        iconUrl: 'icons/hut.png',
+        iconAnchor: [16, 37]
+    });
+    var huts = [
+        L.marker([47.08111, 12.42563], {title: "Badener Hütte", icon: hutIcon}),
+        L.marker([47.12388, 12.45134], {title: "Venedigerhaus", icon: hutIcon}),
+        L.marker([47.1190453, 12.4965305], {title: "Matreier Tauernhaus", icon: hutIcon})
+        ];
+    // feature group to add to map
+    var hutsLayer = L.featureGroup();
+    for (var i=0; i<huts.length; i++){
+        hutsLayer.addLayer(huts[i]);
+    }
+    hutsLayer.addTo(map);
 
 </script>
 
