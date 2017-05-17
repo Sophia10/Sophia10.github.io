@@ -101,7 +101,18 @@
     for (var i=0; i<huts.length; i++){
         hutsLayer.addLayer(huts[i]);
     }
-    hutsLayer.addTo(map);
+    // hutsLayer.addTo(map); -> only at certain zoom level, see below
+
+    //show huts only at certain zoom level
+    map.on("zoomend", function() { // zoom end xD
+        if (map.getZoom()>=12){
+            map.addLayer(hutsLayer);
+        }
+        else{
+            map.removeLayer(hutsLayer);
+        }
+    }
+    );
 
 </script>
 
