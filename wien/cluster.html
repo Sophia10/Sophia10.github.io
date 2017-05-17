@@ -3,34 +3,32 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Karte Wien</title>
+    <title>Stadtspaziergang Wien</title>
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css"/>
     <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
     <!-- Einbindung viewpoint -->
     <meta name="viewpoint" content="decive-width, initial scale = 1.0, user-scalable = no"/>
 
-    <!-- Plugin -->
-    <script src="leaflet-hash.js"></script>
+    <!-- GeoJSON Datenskripts -->
+    <script src="stadtspaziergang_punkte.json.js"></script>
 
+    <!-- Plugins -->
+    <script src="leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="MarkerCluster.css"/>
+    <link rel="stylesheet" href="MarkerCluster.Default.css"/>
 
     <style>
         h1 {
             text-align: center;
         }
 
-        /*
-        #wienMap {
-            width: 900px;
-            height: 600px;
-            border: 1px solid black;
-            margin: auto;
-            }*/
-        body{
+        body {
             padding: 0;
             margin: 0;
         }
-        html, body, p, #wienMap{
+
+        html, body, p, #wienMap {
             /*vh für Fensterhöhe und vw für Fensterbreite*/
             height: 100vh;
             width: 100vw;
@@ -43,6 +41,7 @@
 <div id="wienMap"></div>
 
 <script>
+    console.log(window.spaziergangPunkte);
     // WMTS-Layer definieren - Quelle: http://www.basemap.at/wmts/1.0.0/WMTSCapabilities.xml
     /* copy link and exchange placeholders for leaflet variables {s} for subdomains and {z}, {y] and {x}
      for {TileMatrix}/{TileRow}/{TileCol}. {TileMatrixSet} is found between <ows:Identifier>and</ows:Identifier>;
@@ -89,12 +88,61 @@
         zoom: 12
     });
 
+    // make markerCluster Group for Plugin MarkerCluster
+    var cluster_group = L.markerClusterGroup();
+
+    // Add geolocation, show popup and center map
+    /*map.locate({setView: true, maxZoom: 16});*/
+    function onLocationFound(e) {
+        var radius = e.accuracy / 2;
+        L.marker(e.latlng).addTo(map)
+            .bindPopup("Sie befinden sich in einem Radius von " + Math.round(radius) + " Metern von diesem Punkt").openPopup();
+        L.circle(e.latlng, radius).addTo(map);
+    }
+
+    map.on('locationfound', onLocationFound);
+
     // Maßstab hinzufügen
     L.control.scale({
         maxWidth: 200,
         metric: true,
         imperial: false
     }).addTo(map);
+
+    // GeoJSON Daten des Stadtspaziergangs laden und farbige Marker nach Kategorie mit Popup erstellen
+    var iconByCategory = {
+        1: "https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png",
+        2: "https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png",
+        3: "https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png",
+        4: "https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-orange.png",
+        5: "https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-yellow.png",
+        6: "https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-violet.png"
+    };
+    var punkteSpaziergang = L.geoJSON(window.spaziergangPunkte, {
+        pointToLayer: function (feature, latlng) {
+            return L.marker(latlng, {
+                icon: L.icon({
+                    iconSize: [25, 41],
+                    iconAnchor: [12, 41],
+                    popupAnchor: [1, -34],
+                    shadowSize: [41, 41],
+                    shadowUrl: 'https://unpkg.com/leaflet@1.0.3/dist/images/marker-shadow.png',
+                    iconUrl: iconByCategory[feature.properties.KATEGORIE]
+                })
+            });
+        },
+        /*
+        // Tooltip zum Hinzufügen von Infoboxen
+        onEachFeature: function (feature, layer) {
+            var info = "<h4>" + layer.feature.properties.NAME + "</h4>" + layer.feature.properties.BEMERKUNG + "</br>"
+                + "ID: " + layer.feature.properties.OBJECTID + '</br>'
+                + "Kategorie: " + layer.feature.properties.KATEGORIE + '</br>'
+                + "Adresse: " + layer.feature.properties.ADRESSE + '</br>'
+                + "<a href=" + layer.feature.properties.WEITERE_INF + ">" + "mehr Informationen" + "</a>";
+            layer.bindTooltip(info);
+        }*/
+    }).addTo(cluster_group);
+    map.addLayer(cluster_group);
 
 
     // WMTS-Layer Auswahl und Marker Auswahl Overlay hinzufügen
@@ -111,9 +159,9 @@
 
     }).addTo(map);
 
-   // Add current position to URL with LeafletHash from https://github.com/mlevans/leaflet-hash
-    var hash = new L.Hash(map);
-
+    // Ausschnitt setzen
+    // TODO: Ausschnitt auf Stationen des Stadtpaziergangs setzen
+    map.fitBounds(punkteSpaziergang.getBounds())
 
 </script>
 
