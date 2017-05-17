@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Route von Innsbruck nach Wien</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+    <!-- Einbindung viewpoint -->
+    <meta name="viewpoint" content="decive-width, initial scale = 1.0, user-scalable = no"/>
+
+
+    <!-- Plugins -->
+    <link rel="stylesheet" href="leaflet-routing-machine.css" />
+    <script src="leaflet-routing-machine.js"></script>
+
+    <style>
+        h1 {
+            text-align: center;
+        }
+        body{
+            padding: 0;
+            margin: 0;
+        }
+        html, body, p, #wienMap{
+            /*vh für Fensterhöhe und vw für Fensterbreite*/
+            height: 100vh;
+            width: 100vw;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="wienMap"></div>
+
+<script>
+
+    // WMTS-Layer definieren - Quelle: http://www.basemap.at/wmts/1.0.0/WMTSCapabilities.xml
+    /* copy link and exchange placeholders for leaflet variables {s} for subdomains and {z}, {y] and {x}
+     for {TileMatrix}/{TileRow}/{TileCol}. {TileMatrixSet} is found between <ows:Identifier>and</ows:Identifier>;
+     {Style} is the name of the layer.
+     {TileMatrixSet} is also defined in the xml document and in this case it is google1857:
+     <TileMatrixSet>google3857</TileMatrixSet>.
+     everything is saved in variables defined at the beginning of the line
+     */
+    var layers = {
+        geolandbasemap: L.tileLayer("https://{s}.wien.gv.at/basemap/geolandbasemap/normal/google3857/{z}/{y}/{x}.png", {
+            subdomains: ['maps', 'maps1', 'maps2', 'maps3', 'maps4'],
+            attribution: 'Datenquelle: <a href="http://www.basemap.at/">basemap.at</a>'
+        }),
+        bmapgrau: L.tileLayer("https://{s}.wien.gv.at/basemap/bmapgrau/normal/google3857/{z}/{y}/{x}.png", {
+            subdomains: ['maps', 'maps1', 'maps2', 'maps3', 'maps4'],
+            attribution: 'Datenquelle: <a href="http://www.basemap.at/">basemap.at</a>'
+        }),
+        bmapoverlay: L.tileLayer("https://{s}.wien.gv.at/basemap/bmapoverlay/normal/google3857/{z}/{y}/{x}.png", {
+            subdomains: ['maps', 'maps1', 'maps2', 'maps3', 'maps4'],
+            attribution: 'Datenquelle: <a href="http://www.basemap.at/">basemap.at</a>'
+        }),
+        bmaphidpi: L.tileLayer("https://{s}.wien.gv.at/basemap/bmaphidpi/normal/google3857/{z}/{y}/{x}.jpeg", {
+            subdomains: ['maps', 'maps1', 'maps2', 'maps3', 'maps4'],
+            attribution: 'Datenquelle: <a href="http://www.basemap.at/">basemap.at</a>'
+        }),
+        bmaporthofoto30cm: L.tileLayer("https://{s}.wien.gv.at/basemap/bmaporthofoto30cm/normal/google3857/{z}/{y}/{x}.jpeg", {
+            subdomains: ['maps', 'maps1', 'maps2', 'maps3', 'maps4'],
+            attribution: 'Datenquelle: <a href="http://www.basemap.at/">basemap.at</a>'
+        }),
+        osm: L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            subdomains: ['a', 'b', 'c'],
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }),
+        lb1956: L.tileLayer('http://{s}.wien.gv.at/wmts/lb1956/grau/google3857/{z}/{y}/{x}.jpeg', {
+            subdomains: ['maps', 'maps1', 'maps2', 'maps3', 'maps4'],
+            attribution: 'Datenquelle: Stadt Wien – <a href="http://www.data.wien.gv.at">data.wien.gv.at</a>'
+        })
+    };
+
+    // Karte definieren und Ausschnitt setzen
+    var map = L.map('wienMap', {
+        layers: [layers.bmapgrau],
+        center: [48.20833, 16.373064],
+        zoom: 12
+    });
+
+    // Maßstab hinzufügen
+    L.control.scale({
+        maxWidth: 200,
+        metric: true,
+        imperial: false
+    }).addTo(map);
+
+
+    // WMTS-Layer Auswahl und Marker Auswahl Overlay hinzufügen
+    // TODO: WMTS-Layer Wien, Luftbild 1956 zur Hintergrundlayerauswahl hinzufügen
+    // TODO: GeoJSON Layer Märkte ein/aus Overlay hinzufügen
+    L.control.layers({
+        "basemap.at - STANDARD": layers.geolandbasemap,
+        "basemap.at - GRAU": layers.bmapgrau,
+        "basemap.at - OVERLAY": layers.bmapoverlay,
+        "basemap.at - HIGH-DPI": layers.bmaphidpi,
+        "basemap.at - ORTHOFOTO": layers.bmaporthofoto30cm,
+        "basemap.at - LUFTBILD 1956": layers.lb1956,
+        "OpenStreetMap": layers.osm
+
+    }).addTo(map);
+
+    // Add routing service Leaflet Routing Machine from http://www.liedman.net/leaflet-routing-machine/
+    L.Routing.control({
+        waypoints: [
+            L.latLng(47.263, 11.394),
+            L.latLng(48.227, 16.326)
+        ]
+    }).addTo(map);
+
+</script>
+
+</body>
+
+</html>
