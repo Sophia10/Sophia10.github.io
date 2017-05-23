@@ -16,8 +16,8 @@
     <link rel="stylesheet" href="js/leaflet-elevation/leaflet.elevation-0.0.4.css"/>
     <script src="js/leaflet-elevation/leaflet.elevation-0.0.4.min.js"></script>
     <script src="js/leaflet-elevation/leaflet.elevation-0.0.4.src.js"></script>
-    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-    <script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.3.1/leaflet-omnivore.min.js'></script>
+    <script src="js/d3v3/d3.v3.min.js" charset="utf-8"></script>
+    <script src='js/leaflet-omnivore/leaflet-omnivore.min.js'></script>
 
     <style>
         body {
@@ -25,14 +25,22 @@
             margin: 0px;
         }
 
-        html, body, #map {
-            height: 100vh;
-            width: 100vw;
+        html, body{}
+        #map {
+            height: 600px;
+            width: 1024px;
+            margin: auto; // center map
+        }
+        h1{
+            font-family: "Book Antiqua", "serif";
+            font-size: 20px;
         }
     </style>
 </head>
 
 <body>
+<h1>Adlerweg-Etappe O5: Badener Hütte  –  Matreier Tauernhaus</h1>
+<p>Ein wunderbares Gletscherpanorama wartet entlang dieser Adlerweg-Etappe in Osttirol. Über den Venediger Höhenweg führt die Route nach Osten zum Venedigerhaus von Innergschlöss und schließlich weiter bis zum Etappenziel, dem Matreier Tauernhaus.</p>
 <div id="map"></div>
 
 <script>
@@ -78,6 +86,32 @@
         imperial: false
     }).addTo(map);
 
+    // add height profile with Leaflet Elevation
+    var el = L.control.elevation({
+        position: "bottomright",
+        theme: "steelblue-theme", //default: lime-theme
+        width: 600,
+        height: 210,
+        margins: {
+            top: 10,
+            right: 20,
+            bottom: 30,
+            left: 50
+        },
+        useHeightIndicator: true, //if false a marker is drawn at map position
+        interpolation: "linear", //see https://github.com/mbostock/d3/wiki/SVG-Shapes#wiki-area_interpolate
+        hoverNumber: {
+            decimalsX: 3, //decimals on distance (always in km)
+            decimalsY: 0, //deciamls on hehttps://www.npmjs.com/package/leaflet.coordinatesight (always in m)
+            formatter: undefined //custom formatter function may be injected
+        },
+        xTicks: undefined, //number of ticks in x axis, calculated by default according to width
+        yTicks: undefined, //number of ticks on y axis, calculated by default according to height
+        collapsed: false,  //collapsed mode, show chart on click or mouseover
+        imperial: false    //display imperial units instead of metric
+    });
+    el.addTo(map);
+
     // WMTS-Layer Auswahl hinzufügen
     var layerControl = L.control.layers({
         "basemap.at - STANDARD": layers.geolandbasemap,
@@ -90,8 +124,6 @@
 
     // leaflet-hash aktivieren
     var hash = new L.Hash(map);
-
-
 
     //add huts
     var hutIcon = L.icon({
@@ -120,39 +152,42 @@
             }
         }
     );
-
-    // add height profile with Leaflet Elevation
-    var el = L.control.elevation({
-        position: "bottomright",
-        theme: "steelblue-theme", //default: lime-theme
-        width: 600,
-        height: 210,
-        margins: {
-            top: 10,
-            right: 20,
-            bottom: 30,
-            left: 50
-        },
-        useHeightIndicator: true, //if false a marker is drawn at map position
-        interpolation: "linear", //see https://github.com/mbostock/d3/wiki/SVG-Shapes#wiki-area_interpolate
-        hoverNumber: {
-            decimalsX: 3, //decimals on distance (always in km)
-            decimalsY: 0, //deciamls on hehttps://www.npmjs.com/package/leaflet.coordinatesight (always in m)
-            formatter: undefined //custom formatter function may be injected
-        },
-        xTicks: undefined, //number of ticks in x axis, calculated by default according to width
-        yTicks: undefined, //number of ticks on y axis, calculated by default according to height
-        collapsed: false,  //collapsed mode, show chart on click or mouseover
-        imperial: false    //display imperial units instead of metric
-    });
-    el.addTo(map);
     
+    /*
     // add geoJSON
     L.geoJSON(window.etappeO5, {
         onEachFeature: el.addData.bind(el) //Leaflet Elevation
-    }).addTo(map);
+    }).addTo(map);*/
+    // GPX track import with Leaflet Omnivore
+    track = omnivore.gpx('data/AdlerwegEtappeO5.gpx').addTo(map);
 
-    omnivore.gpx('data/AdlerwegEtappeO6.gpx').addTo(map);
+    // nach erfolgreichem Laden Popup hinzufügen, Ausschnitt setzen und Höhenprofil erzeugen
+    track.on('ready', function () {
+        // Popup hinzufügen
+        var markup = '<h3>Adlerweg-Etappe 1: St. Johann – Gaudeamushütte</h3>';
+        //markup += '<p>Von der Badener Hütte (2.608 Meter) wandert man zuerst über den Venediger Höhenweg bzw. Adlerweg (hier auch Badener Weg) nordwärts ca. eine Stunde hinauf zum Löbbentörl (2.770 Meter). Dabei sind einige felsdurchzogene Rinnen und kleine Schluchten seilversichert.  Über eine kurze Halde steigt man weiter zum Löbbentörl hinan, wo im Schutz eines Felsens ein Kreuz und eine Gedenktafel stehen. Von nun an geht es steil bergab. Der nordseitige Abstieg mit kurzen Seilstellen führt auf Fels-Rasen-Rücken und Altschnee hinunter zur Seitenmoräne des Schlatenkees´. Auf dieser Moräne steigt man weiter ab. Am Unteren Keesboden gibt es einen Übergang zur Alten Prager Hütte (nicht bewirtschaftet),  hier kann man auch zum faszinierenden Gletscherschaupfad „Innergschlöss“ abzweigen. Der Venediger Höhenweg passiert den Salzbodensee (2.731 Meter), in dem sich Hoher Zaun und Schwarze Wand spiegeln. Nördlich des gletscherweißen Gschlössbaches wendet sich der Weg scharf nach Osten. Im gletschernahen, gut geführten Venedigerhaus (1.689 Meter) lässt sich eine gemütliche Rast einschieben. Entlang des Gschlössbaches geht es dann weiter talauswärts, zwischen den Almen von Inner- und Außergschlöss bietet sich ein Innehalten bei der alten Felsenkapelle an. Eine Einkehr weltlicher Art ist im Berghaus Außergschlöss (1.700 Meter) empfehlenswert. Das Tal weitet sich nun. Von Gschlöss geht es noch ca. eine Stunde sanft über nicht einmal 200 Höhenmeter bergab zum Matreier Tauernhaus (1.512 Meter), wo man nach den langen fordernden Abstiegen dieser Etappe vermutlich etwas knieweich ankommt. Hier kann man sich ausruhen, feine regionale Schmankerln genießen und komfortabel übernachten. Wegbeschreibungen siehe auch: „Osttiroler Wanderbuch“ von Walter Mair.
+        </p>';
+        markup += '<li>Ausgangspunkt: Badener Hütte </li>';
+        markup += '<li>Endpunkt: Matreier Tauernhaus
+            </li>';
+        markup += '<li>Höhenmeter bergauf: 450</li>';
+        markup += '<li>Höhenmeter bergab: 1550</li>';
+        markup += '<li>Höchster Punkt: 2768</li>';
+        markup += '<li>Schwierigkeitsgrad: schwarz</li>';
+        markup += '<li>Streckenlänge (in km): 14</li>';
+        markup += '<li>Gehzeit (in Stunden): 5,5</li>';
+        markup += '<li>Einkehrmöglichkeiten: Venedigerhaus, Matreier Tauernhaus</li>';
+        markup += '<li><a href="http://www.tirol.at/reisefuehrer/sport/wandern/wandertouren/a-adlerweg-etappe-1-st-johann-gaudeamushuette">Weitere Informationen</a></li>';
+        track.bindPopup(markup, { maxWidth : 450 });
+
+        // Ausschnitt setzen
+        map.fitBounds(track.getBounds());
+
+        // Höhenprofil erzeugen
+        track.eachLayer(function(layer) {
+            el.addData(layer.feature);
+        });
+    });
 
 </script>
 
