@@ -215,6 +215,21 @@
         });
     });
 
+    // add switch-statement to change colors according to the steepness of the terrain
+    var farbe;
+    var steigung = 10;
+    switch(true) { // checks if condition is true, not for certain values of a variable
+        case (steigung > 0):
+            farbe = "rot";
+            break;
+        case (steigung === 0):
+            farbe = "gelb";
+            break;
+        default:
+            farbe = "grün";
+    }
+    console.log(steigung + " " + farbe);
+
 </script>
 
 </body>
