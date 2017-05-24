@@ -227,7 +227,6 @@
      onEachFeature: el.addData.bind(el) //Leaflet Elevation
      }).addTo(map);*/
     function loadTrack(currentTrack) {
-
         // GPX track import with Leaflet Omnivore
         var track = omnivore.gpx('data/'+currentTrack).addTo(map);
 
@@ -252,6 +251,7 @@
             map.fitBounds(track.getBounds());
 
             // generate height profile
+            el.clear();
             track.eachLayer(function (layer) {
                 el.addData(layer.feature);
                 // get points from feature to further use them
