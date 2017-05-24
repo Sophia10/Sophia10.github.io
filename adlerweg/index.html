@@ -206,6 +206,7 @@
         markup += '<li><a href="http://www.tirol.at/reisefuehrer/sport/wandern/wandertouren/a-adlerweg-etappe-o5-badener-huette-matreier-tauernhaus">Weitere Informationen</a></li>';
         track.bindPopup(markup, { maxWidth : 450 });
 
+        // set bounds
         map.fitBounds(track.getBounds());
 
         // generate height profile
@@ -222,11 +223,15 @@
                 var dist = map.distance(
                     [pts[i][1], pts[i][0]], // lat and lng values per point
                     [pts[i-1][1], pts[i-1][0]]
-                ).toFixed(0); //round to zero decimal points
+                ).toFixed(2); //round to zero decimal points
                // calculate height difference
-                var delta = pts[i][2] - pts[i-1][2];
-                delta.toFixed(0);
-                console.log(delta, " Höhenmeter auf ", dist, "m Distanz");
+                var delta = (pts[i][2] - pts[i-1][2]).toFixed(2);
+
+                // calculate slope
+                var slopeRad = Math.atan(delta/dist);
+                var slope = (slopeRad * (180/Math.PI)).toFixed(2); //in degrees
+                console.log(delta, " Höhenmeter auf ", dist, "m Distanz, also", slope, "Grad Steigung.");
+
             }
         });
     });
