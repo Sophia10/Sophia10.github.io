@@ -78,6 +78,15 @@
     <option value="AdlerwegEtappe23.gpx">Adlerweg Etappe 23</option>
     <option value="AdlerwegEtappe24.gpx">Adlerweg Etappe 24</option>
     <option value="AdlerwegEtappe25.gpx">Adlerweg Etappe 25</option>
+    <option value="AdlerwegEtappeO1.gpx">Adlerweg Etappe Osttirol 1 </option>
+    <option value="AdlerwegEtappeO2.gpx">Adlerweg Etappe Osttirol 2 </option>
+    <option value="AdlerwegEtappeO3.gpx">Adlerweg Etappe Osttirol 3 </option>
+    <option value="AdlerwegEtappeO4.gpx">Adlerweg Etappe Osttirol 4 </option>
+    <option value="AdlerwegEtappeO5.gpx">Adlerweg Etappe Osttirol 5 </option>
+    <option value="AdlerwegEtappeO6.gpx">Adlerweg Etappe Osttirol 6 </option>
+    <option value="AdlerwegEtappeO7.gpx">Adlerweg Etappe Osttirol 7 </option>
+    <option value="AdlerwegEtappeO8.gpx">Adlerweg Etappe Osttirol 8 </option>
+    <option value="AdlerwegEtappeO9.gpx">Adlerweg Etappe Osttirol 9 </option>
 </select></p>
 
 <p><a href="https://github.com/Sophia10">Sophia Paul</a></p>
@@ -217,8 +226,9 @@
      L.geoJSON(window.etappeO5, {
      onEachFeature: el.addData.bind(el) //Leaflet Elevation
      }).addTo(map);*/
-    // GPX track import with Leaflet Omnivore
     function loadTrack(currentTrack) {
+
+        // GPX track import with Leaflet Omnivore
         var track = omnivore.gpx('data/'+currentTrack).addTo(map);
 
         // add popup, bounds and height profile
@@ -331,7 +341,8 @@
         var selectedTrack = stageSelector[stageSelector.selectedIndex].value;
         console.log("GPX Track laden: ", stageSelector[stageSelector.selectedIndex].value);
         loadTrack(stageSelector[stageSelector.selectedIndex].value);
-    }
+    };
+    loadTrack('AdlerwegEtappe01.gpx');
 
 
 </script>
