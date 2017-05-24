@@ -189,7 +189,7 @@
     // GPX track import with Leaflet Omnivore
     track = omnivore.gpx('data/AdlerwegEtappeO5.gpx').addTo(map);
 
-    // nach erfolgreichem Laden Popup hinzufügen, Ausschnitt setzen und Höhenprofil erzeugen
+    // add popup, bounds and height profile
     track.on('ready', function () {
         // Popup hinzufügen
         var markup = '<h3>Adlerweg-Etappe 1: St. Johann – Gaudeamushütte</h3>';
@@ -206,12 +206,28 @@
         markup += '<li><a href="http://www.tirol.at/reisefuehrer/sport/wandern/wandertouren/a-adlerweg-etappe-o5-badener-huette-matreier-tauernhaus">Weitere Informationen</a></li>';
         track.bindPopup(markup, { maxWidth : 450 });
 
-        // Ausschnitt setzen
         map.fitBounds(track.getBounds());
 
-        // Höhenprofil erzeugen
+        // generate height profile
         track.eachLayer(function(layer) {
             el.addData(layer.feature);
+            // get points from feature to further use them
+            var pts = layer.feature.geometry.coordinates;
+            console.log(pts);
+            // read coordinate pairs from points-layer (start with second point/first pair)
+            for (var i=1; i<pts.length; i++){
+                //console.log(pts[i]); // current point
+                //console.log(pts[i-1]); // previous point
+                // calculate distance
+                var dist = map.distance(
+                    [pts[i][1], pts[i][0]], // lat and lng values per point
+                    [pts[i-1][1], pts[i-1][0]]
+                ).toFixed(0); //round to zero decimal points
+               // calculate height difference
+                var delta = pts[i][2] - pts[i-1][2];
+                delta.toFixed(0);
+                console.log(delta, " Höhenmeter auf ", dist, "m Distanz");
+            }
         });
     });
 
