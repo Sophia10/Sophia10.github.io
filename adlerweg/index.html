@@ -29,7 +29,7 @@
         html, body{
         }
         #map {
-            height: 600px;
+            height: 550px;
             width: 1024px;
             margin: auto; // center map
         }
@@ -45,16 +45,15 @@
             width: 1024px;
             margin: auto;
         }
+        #stages{
+            float: left;
+            padding: 1px;
+        }
     </style>
 </head>
 
 <body>
-<div id="title"></div>
-<div id="shortText"></div>
-<div id="map"></div>
-<div id="description"></div>
-
-<p><select id="stages">
+<select id="stages">
     <option value="AdlerwegEtappe01.gpx">Adlerweg Etappe 1 </option> // write at several points at the same time: Alt + J
     <option value="AdlerwegEtappe02.gpx">Adlerweg Etappe 2 </option>
     <option value="AdlerwegEtappe03.gpx">Adlerweg Etappe 3 </option>
@@ -89,7 +88,14 @@
     <option value="AdlerwegEtappeO7.gpx">Adlerweg Etappe Osttirol 7 </option>
     <option value="AdlerwegEtappeO8.gpx">Adlerweg Etappe Osttirol 8 </option>
     <option value="AdlerwegEtappeO9.gpx">Adlerweg Etappe Osttirol 9 </option>
-</select></p>
+</select>
+<h1 id="title"></h1>
+<p id="shortText"></p>
+
+<br/>
+<div id="map"></div>
+<br/>
+<p id="description"></p>
 
 <p><a href="https://github.com/Sophia10">Sophia Paul</a></p>
 
@@ -229,9 +235,9 @@
      onEachFeature: el.addData.bind(el) //Leaflet Elevation
      }).addTo(map);*/
     function loadTrack(currentTrack) {
-        document.getElementById("title").innerHTML = "<h1>" + window.ETAPPENINFO[currentTrack].titel + "</h1>";
-        document.getElementById("shortText").innerHTML = "<p>"+ window.ETAPPENINFO[currentTrack].text + "</p>";
-        document.getElementById("description").innerHTML = "<p>" + window.ETAPPENINFO[currentTrack].beschreibung + "</p>";
+        document.getElementById("title").innerHTML = window.ETAPPENINFO[currentTrack].titel;
+        document.getElementById("shortText").innerHTML = window.ETAPPENINFO[currentTrack].text;
+        document.getElementById("description").innerHTML = window.ETAPPENINFO[currentTrack].beschreibung;
 
         // GPX track import with Leaflet Omnivore
         var track = omnivore.gpx('data/'+currentTrack).addTo(map);
@@ -239,19 +245,18 @@
         // add popup, bounds and height profile
         track.on('ready', function () {
             // Popup hinzufügen
-            var markup = '<h3>' + title + '</h3>';
-            markup += '<p>Ein wunderbares Gletscherpanorama wartet entlang dieser Adlerweg-Etappe in Osttirol. Über den Venediger Höhenweg führt die Route nach Osten zum Venedigerhaus von Innergschlöss und schließlich weiter bis zum Etappenziel, dem Matreier Tauernhaus.</p>';
-            markup += '<li>Ausgangspunkt: Badener Hütte </li>';
-            markup += '<li>Endpunkt: Matreier Tauernhaus</li>';
-            markup += '<li>Höhenmeter bergauf: 450</li>';
-            markup += '<li>Höhenmeter bergab: 1550</li>';
-            markup += '<li>Höchster Punkt: 2768</li>';
-            markup += '<li>Schwierigkeitsgrad: schwarz</li>';
-            markup += '<li>Streckenlänge (in km): 14</li>';
-            markup += '<li>Gehzeit (in Stunden): 5,5</li>';
-            markup += '<li>Einkehrmöglichkeiten: Venedigerhaus, Matreier Tauernhaus</li>';
+            var markup = '<h3>' + window.ETAPPENINFO[currentTrack].titel + '</h3>';
+            markup += '<i>' + window.ETAPPENINFO[currentTrack].text + '</i>';
+            markup += '<li>Ausgangspunkt: '+ window.ETAPPENINFO[currentTrack].ausgangspunkt + '</li>';
+            markup += '<li>Endpunkt:'+ window.ETAPPENINFO[currentTrack].endpunkt + '</li>';
+            markup += '<li>Höhenmeter bergauf: '+ window.ETAPPENINFO[currentTrack].auf + '</li>';
+            markup += '<li>Höhenmeter bergab: '+ window.ETAPPENINFO[currentTrack].ab + '</li>';
+            markup += '<li>Höchster Punkt: '+ window.ETAPPENINFO[currentTrack].max + '</li>';
+            markup += '<li>Schwierigkeitsgrad: '+ window.ETAPPENINFO[currentTrack].schwierigkeit + '</li>';
+            markup += '<li>Streckenlänge (in km): '+ window.ETAPPENINFO[currentTrack].laenge + '</li>';
+            markup += '<li>Gehzeit (in Stunden): '+ window.ETAPPENINFO[currentTrack].zeit + '</li>';
+            markup += '<li>Einkehrmöglichkeiten: '+ window.ETAPPENINFO[currentTrack].einkehr + '</li>';
             markup += '<li><a href="http://www.tirol.at/reisefuehrer/sport/wandern/wandertouren/a-adlerweg-etappe-o5-badener-huette-matreier-tauernhaus">Weitere Informationen</a></li>';
-            track.bindPopup(markup, {maxWidth: 450});
 
             // set bounds
             map.fitBounds(track.getBounds());
@@ -335,7 +340,7 @@
                         opacity: 1,
                         smoothFactor: 1
                     });
-                    polyline.addTo(map);
+                    polyline.addTo(map).bindPopup(markup, {maxWidth: 450});
                 }
             });
         });
