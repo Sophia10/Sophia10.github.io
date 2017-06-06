@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+    <title>Adlerweg</title>
+
+    <link rel="stylesheet" href="js/leaflet/leaflet.css"/>
+    <script src="js/leaflet/leaflet.js"></script>
+
+    <script src="map.js"></script>
+
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        html, body{
+        }
+        #map {
+            height: 550px;
+            width: 1024px;
+            margin: auto; // center map
+        }
+        h1{
+            font-family: "Book Antiqua", "serif";
+            font-size: 20px;
+            text-align: center;
+        }
+        p{
+            text-align: center;
+            font-family: "Book Antiqua", "serif";
+            font-size: small;
+            width: 1024px;
+            margin: auto;
+        }
+        #stages{
+            float: left;
+            padding: 1px;
+        }
+        #navbar {
+            /*Add your CSS here!*/
+            position:fixed;
+            margin: 10px 0px 0px 0px;
+            left:50%;
+            margin-left:-254px;
+        }
+        #header {
+            position: relative;
+            top: -10px;
+            background-color: #3c4543;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+    </style>
+</head>
+
+<body>
+<div id="header">
+    <!--<div id="navbar">
+        <ul>
+            <li>Home</li>
+            <li>About Me</li>
+            <li>Plans for World Domination</li>
+            <li>Contact</li>
+        </ul>
+    </div>*-->
+    <h2>Map    Photographers   Gallery</h2>
+</div>
+<br/>
+<div id="map"></div>
+<br/>
+
+<p><a href="https://github.com/Sophia10">Sophia Paul</a></p>
+
+</body>
+
+</html>
