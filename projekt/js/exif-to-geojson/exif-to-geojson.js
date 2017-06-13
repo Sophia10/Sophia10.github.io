@@ -4,8 +4,19 @@
  */
 
 var ExifImage = require('exif').ExifImage;
-var fs        = require('fs');
+//var fs        = require('fs');
 var flow      = require('flow');
+
+try {
+    new ExifImage({ image : '/img/RussiaSophia-6.jpg' }, function (error, exifData) {
+        if (error)
+            console.log('Error: '+error.message);
+        else
+            console.log(exifData); // Do something with your data!
+    });
+} catch (error) {
+    console.log('Error: ' + error.message);
+}
 
 var geojson = {
   type: "FeatureCollection",
