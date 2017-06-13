@@ -6,6 +6,10 @@ window.onload = function () {
         }
     });
     var layers = {
+        bmaporthofoto30cm: L.tileLayer("https://{s}.wien.gv.at/basemap/bmaporthofoto30cm/normal/google3857/{z}/{y}/{x}.jpeg", {
+            subdomains: ['maps', 'maps1', 'maps2', 'maps3', 'maps4'],
+            attribution: 'Datenquelle: <a href="http://www.basemap.at/">basemap.at</a>'
+        }),
         osm: L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             subdomains: ['a', 'b', 'c'],
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'}),
@@ -58,11 +62,32 @@ window.onload = function () {
 */
 // WMTS-Layer Auswahl hinzufügen
     var layerControl = L.control.layers({
-        "General Bathymetric Chart of the Oceans (GEBCO) 2014": layers.gebco_14,
+        "Orthofoto (nur &Ouml;sterreich)": layers.bmaporthofoto30cm,
         "OpenStreetMap": layers.osm
         //"CloudMade": layers.cloudmade
     }).addTo(map);
 
+    //Exif to geojson
+    $.get('exif.geojson', function (data) {
+        var geojson = null;
+        if (typeof data === 'string') {
+            geojson = JSON.parse(data)
+        } else {
+            geojson = data;
+        }
+        var layer = L.geoJson(geojson, {
+            onEachFeature: function(feature, layer) {
+                var imgPath = feature.properties.imgPath;
+                var html = '<a href="'+imgPath+'" target="_blank">'+imgPath+'<br/><img width="200px" src="'+imgPath+'"</img></a><br/>';
+                html += 'GPS Timestamp: <br/><b>' + feature.properties.gpsTimeStr + '</b><br/>';
+                html += 'Image Timestamp: <br/><b>' + feature.properties.imgTimeStr + '</b><br/>';
+                html += 'Latitude: <br/><b>' + feature.geometry.coordinates[1] + '</b><br/>';
+                html += 'Longitude: <br/><b>' + feature.geometry.coordinates[0] + '</b><br/>';
+//                    html += JSON.stringify(feature.properties, null, 2);
+                layer.bindPopup(html);
+            }
+        }).addTo(map);
+    })
 /*// leaflet-hash aktivieren
     var hash = new L.Hash(map);
 
@@ -240,4 +265,5 @@ window.onload = function () {
         loadTrack(stageSelector[stageSelector.selectedIndex].value);
     };
     loadTrack('AdlerwegEtappe01.gpx');*/
+
 };
