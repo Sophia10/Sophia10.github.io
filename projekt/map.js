@@ -68,6 +68,8 @@ window.onload = function () {
     }).addTo(map);
 
     //Exif to geojson
+    var ExifImage = require('exif').ExifImage;
+
     $.get('exif.geojson', function (data) {
         var geojson = null;
         if (typeof data === 'string') {

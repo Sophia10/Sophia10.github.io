@@ -88,7 +88,7 @@ function processImage(imgPath, cb) {
 }
 
 console.log('Reading images in img directory...');
-var files = fs.readdirSync('img');
+var files = fs.readdirSync('/img');
 
 /**
  * Make sure we don't have anything that isn't jpg...
