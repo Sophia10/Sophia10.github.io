@@ -33,33 +33,7 @@ window.onload = function () {
         metric: true,
         imperial: false
     }).addTo(map);
-/*
-// add height profile with Leaflet Elevation
-    var el = L.control.elevation({
-        position: "bottomright",
-        theme: "steelblue-theme", //default: lime-theme
-        width: 600,
-        height: 210,
-        margins: {
-            top: 10,
-            right: 20,
-            bottom: 30,
-            left: 50
-        },
-        useHeightIndicator: true, //if false a marker is drawn at map position
-        interpolation: "linear", //see https://github.com/mbostock/d3/wiki/SVG-Shapes#wiki-area_interpolate
-        hoverNumber: {
-            decimalsX: 3, //decimals on distance (always in km)
-            decimalsY: 0, //deciamls on hehttps://www.npmjs.com/package/leaflet.coordinatesight (always in m)
-            formatter: undefined //custom formatter function may be injected
-        },
-        xTicks: undefined, //number of ticks in x axis, calculated by default according to width
-        yTicks: undefined, //number of ticks on y axis, calculated by default according to height
-        collapsed: false,  //collapsed mode, show chart on click or mouseover
-        imperial: false    //display imperial units instead of metric
-    });
-    el.addTo(map);
-*/
+
 // WMTS-Layer Auswahl hinzufügen
     var layerControl = L.control.layers({
         "Orthofoto (nur &Ouml;sterreich)": layers.bmaporthofoto30cm,
@@ -67,32 +41,10 @@ window.onload = function () {
         //"CloudMade": layers.cloudmade
     }).addTo(map);
 
-    //Exif to geojson
-    var ExifImage = require('exif').ExifImage;
-
-    $.get('exif.geojson', function (data) {
-        var geojson = null;
-        if (typeof data === 'string') {
-            geojson = JSON.parse(data)
-        } else {
-            geojson = data;
-        }
-        var layer = L.geoJson(geojson, {
-            onEachFeature: function(feature, layer) {
-                var imgPath = feature.properties.imgPath;
-                var html = '<a href="'+imgPath+'" target="_blank">'+imgPath+'<br/><img width="200px" src="'+imgPath+'"</img></a><br/>';
-                html += 'GPS Timestamp: <br/><b>' + feature.properties.gpsTimeStr + '</b><br/>';
-                html += 'Image Timestamp: <br/><b>' + feature.properties.imgTimeStr + '</b><br/>';
-                html += 'Latitude: <br/><b>' + feature.geometry.coordinates[1] + '</b><br/>';
-                html += 'Longitude: <br/><b>' + feature.geometry.coordinates[0] + '</b><br/>';
-//                    html += JSON.stringify(feature.properties, null, 2);
-                layer.bindPopup(html);
-            }
-        }).addTo(map);
-    })
-/*// leaflet-hash aktivieren
+// leaflet-hash aktivieren
     var hash = new L.Hash(map);
 
+    /*
 //add icons
     var hutIcon = L.icon({
         iconUrl: 'icons/hut.png',
