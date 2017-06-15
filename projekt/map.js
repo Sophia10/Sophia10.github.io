@@ -44,6 +44,7 @@ window.onload = function () {
 // leaflet-hash aktivieren
     var hash = new L.Hash(map);
 
+
     /*
 //add icons
     var hutIcon = L.icon({
