@@ -1,4 +1,3 @@
-
 function getExif() {
     console.log("Here I am");
     var img1 = document.getElementById("img1");

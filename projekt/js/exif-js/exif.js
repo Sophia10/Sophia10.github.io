@@ -929,10 +929,6 @@
     }
 
     EXIF.getData = function(img, callback) {
-        if ((self.Image && img instanceof self.Image)
-            || (self.HTMLImageElement && img instanceof self.HTMLImageElement)
-            && !img.complete)
-            return false;
 
         if (!imageHasData(img)) {
             getImageData(img, callback);
@@ -941,6 +937,13 @@
                 callback.call(img);
             }
         }
+        //moved down to make script work in Firefox and IExplorer
+        if ((self.Image && img instanceof self.Image)
+            || (self.HTMLImageElement && img instanceof self.HTMLImageElement)
+            && !img.complete)
+            return false;
+        else{return true}
+
         return true;
     }
 
