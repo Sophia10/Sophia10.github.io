@@ -1,12 +1,13 @@
 function getExif() {
     console.log("Here I am");
+
     var img1 = document.getElementById("img1");
     EXIF.getData(img1, function () {
-        var make = EXIF.getTag(this, "Make");
-        var model = EXIF.getTag(this, "Model");
-        var makeAndModel = document.getElementById("makeAndModel");
-        makeAndModel.innerHTML = make + " " + model;
-        console.log(make + model);
+        var longitude = EXIF.GPSTags(this,"GPSLongitude");
+        var latitude = EXIF.GPSTags(this, "GPSLongitude");
+        var author = EXIF.getTag(this, "Copyright");
+        var location = document.getElementById("makeAndModel");
+        location.innerHTML = longitude + " " + latitude + "by " + author;
     });
 
     var img2 = document.getElementById("img2");

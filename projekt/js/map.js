@@ -53,22 +53,8 @@ window.onload = function () {
 // leaflet-hash aktivieren
     var hash = new L.Hash(map);
 
+    //load image data
     getExif();
-    /* URL of the image (must be on the same domain!)
-    var file = "img/RussiaSophia-6.jpg";
 
-// define your own callback function
-    function mycallback() {
-        // either call the ImageInfo.getAllFields([file]) function which returns an object holding all the info
-
-        // or call ImageInfo.getField([file], [field]) to get a specific field
-        alert(
-            "Format: " + ImageInfo.getField(file, "format") + ", dimensions : " + ImageInfo.getField(file, "width") + "x" + ImageInfo.getField(file, "height")
-        );
-    }*/
-
-// finally, load the data
-
-    //ImageInfo.loadInfo(file, mycallback);
 
 };
