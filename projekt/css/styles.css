@@ -1,5 +1,5 @@
 *{
-	font-family: "Neuzeit", "Calibri", "Verdana", sans-serif;
+    font-family: "Neuzeit", "Calibri", "Verdana", sans-serif;
 }
 
 
@@ -28,49 +28,50 @@ li a:hover {
     background-color: #111;
 }
 
-        body {
-            padding: 0;
-            margin: 0;
-        }
+body {
+    padding: 0;
+    margin: 0;
+}
 
-        html, body{
-        }
-        #map {
-            height: 550px;
-            width: 1024px;
-            margin: auto; // center map
-        }
-		#smallmap {
-            height: 275px;
-            width: 512px;
-            margin: auto; // right map
-        }
-        h1{
-            font-family: "Book Antiqua", "serif";
-            font-size: 20px;
-            text-align: center;
-        }
-        p{
-            text-align: center;
-            font-family: "Book Antiqua", "serif";
-            font-size: small;
-            width: 1024px;
-            margin: auto;
-        }
-        #stages{
-            float: left;
-            padding: 1px;
-        }
-        #navbar {
-            position:fixed;
-            margin: 10px 0px 0px 0px;
-            left:50%;
-            margin-left:-254px;
-        }
-        #header {
-            position: relative;
-            top: -10px;
-            background-color: #3c4543;
-            border-top-left-radius: 15px;
-            border-top-right-radius: 15px;
-        }
+html, body{
+}
+#map {
+    height: 550px;
+    width: 1024px;
+    margin: auto; // center map
+}
+#smallmap {
+    height: 275px;
+    width: 512px;
+    float: right;
+    margin: 20px;
+}
+h1{
+    font-family: "Book Antiqua", "serif";
+    font-size: 20px;
+    text-align: center;
+}
+p{
+    text-align: center;
+    font-family: "Book Antiqua", "serif";
+    font-size: small;
+    width: 1024px;
+    margin: auto;
+}
+#stages{
+    float: left;
+    padding: 1px;
+}
+#navbar {
+    position:fixed;
+    margin: 10px 0px 0px 0px;
+    left:50%;
+    margin-left:-254px;
+}
+#header {
+    position: relative;
+    top: -10px;
+    background-color: #3c4543;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
