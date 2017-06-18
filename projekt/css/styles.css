@@ -40,6 +40,11 @@ li a:hover {
             width: 1024px;
             margin: auto; // center map
         }
+		#smallmap {
+            height: 275px;
+            width: 512px;
+            margin: auto; // right map
+        }
         h1{
             font-family: "Book Antiqua", "serif";
             font-size: 20px;
