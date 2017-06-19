@@ -31,7 +31,7 @@ window.onload = function () {
     var map = L.map('map', {
         layers: [layers.osm],
         center: [25.8, 7.4],
-        zoom: 1
+        zoom: 2
     });
 
 // Maßstab hinzufügen
