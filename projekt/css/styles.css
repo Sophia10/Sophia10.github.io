@@ -8,7 +8,7 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #333;
+    background-color: #3388ff;
 }
 
 li {
@@ -23,9 +23,8 @@ li a {
     text-decoration: none;
 }
 
-/* Change the link color to #111 (black) on hover */
 li a:hover {
-    background-color: #111;
+    background-color: #666666;
 }
 
 body {
@@ -41,10 +40,12 @@ html, body{
     margin: auto; // center map
 }
 #smallmap {
-    height: 275px;
+    height: 300px;
     width: 512px;
     float: right;
-    margin: 20px;
+    margin: 40px;
+    clear: none;
+    background-color: #666666;
 }
 h1{
     font-family: "Book Antiqua", "serif";
@@ -63,7 +64,7 @@ p{
 }
 #navbar {
     position:fixed;
-    margin: 10px 0px 0px 0px;
+    margin: 10px 0 0 0;
     left:50%;
     margin-left:-254px;
 }
