@@ -29,12 +29,16 @@ var nextProj =[
     L.marker([5.100463, 10.107226], {
         title: "Kamerun - Philipp",
         icon: L.icon({iconUrl: 'icons/nextProj.png', iconAnchor: [16, 37]})
+    }),
+    L.marker([49.490565, 5.8620932], {
+        title: "Luxembourg - Yannick",
+        icon: L.icon({iconUrl: 'icons/nextProj.png', iconAnchor: [16, 37]})
     })
 			];
-			
+
 			var nextProjLayer=L.featureGroup();
-			for (var i=0; i<nextProj.length; i++) {  
+    for (var i = 0; i < nextProj.length; i++) {
 				nextProjLayer.addLayer(nextProj[i]);
-			}	
+    }
 			nextProjLayer.addTo(smallmap);
 };
