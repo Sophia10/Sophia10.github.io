@@ -42,10 +42,12 @@ html, body{
 #smallmap {
     height: 300px;
     width: 512px;
-    float: right;
+    position: fixed;
+    right: 100px;
+    top: 150px;
     margin: 40px;
-    clear: none;
     background-color: #666666;
+
 }
 h1{
     font-family: "Book Antiqua", "serif";
@@ -66,7 +68,7 @@ p{
     position:fixed;
     margin: 10px 0 0 0;
     left:50%;
-    margin-left:-254px;
+    margin-left: -254px;
 }
 #header {
     position: relative;
