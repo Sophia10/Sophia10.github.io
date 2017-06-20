@@ -4,7 +4,7 @@
  */
 
 var ExifImage = require('exif').ExifImage;
-//var fs        = require('fs');
+var fs = require('fs');
 var flow      = require('flow');
 
 try {
