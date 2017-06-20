@@ -40,10 +40,24 @@ window.onload = function () {
         imperial: false
     }).addTo(smallmap);
 
-// WMTS-Layer Auswahl hinzufügen
-    /*var layerControl = L.control.layers({
-     "Orthofoto (nur &Ouml;sterreich)": layers.Stamen_Watercolor,
-     "GIBSLayer": layers.gibs
-     //"CloudMade": layers.cloudmade
-     }).addTo(smallmap);*/
+var nextProj =[
+			L.marker([65.993628, -18.532469],{title:"Island - Philipp", icon: L.icon({iconUrl:'icons/nextProj.png', iconAnchor:[16,37]}) }),
+			L.marker([52.1682697,-9.7406013],{title:"Irland - Sophia", icon: L.icon({iconUrl:'icons/nextProj.png', iconAnchor:[16,37]}) }),
+			L.marker([49.7849845, 18.7959109],{title:"Polen - Sophia", icon: L.icon({iconUrl:'icons/nextProj.png', iconAnchor:[16,37]}) }),
+			L.marker([5.100463,10.107226],{title:"Kamerun - Philipp", icon: L.icon({iconUrl:'icons/nextProj.png', iconAnchor:[16,37]}) }),
+			];
+			
+			var nextProjLayer=L.featureGroup();
+			for (var i=0; i<nextProj.length; i++) {  
+				nextProjLayer.addLayer(nextProj[i]);
+			}	
+			nextProjLayer.addTo(smallmap);
+			/*smallmap.on("zoomend", function(){
+				if(smallmap.getZoom()>=15){
+					smallmap.addLayer(nextProjLayer);
+				} else{
+					smallmap.removeLayer(nextProjLayer);
+				}*/
+	;		
+			//});
 };
