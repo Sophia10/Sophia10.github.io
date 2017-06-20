@@ -67,18 +67,25 @@ window.onload = function () {
     var allImages = document.getElementsByClassName("pictures");
     console.log(allImages);
     for (var i = 0; i < allImages.length; i += 1) {
-        console.log(allImages[i])
+        console.log(allImages[i]);
         EXIF.getData(allImages[i], function () {
-            // console.log("das Bild:",this)
+            author = EXIF.getTag(this, "Copyright");
             lat_arr = EXIF.getTag(this, "GPSLatitude");
             lng_arr = EXIF.getTag(this, "GPSLongitude");
             lat = lat_arr[0] + (lat_arr[1] / 60);
             lng = lng_arr[0] + (lng_arr[1] / 60);
-            if (EXIF.getTag(this, "GPSLatitudeRef") === "S") {
+            latRef = EXIF.getTag(this, "GPSLatitudeRef");
+            lngRef = EXIF.getTag(this, "GPSLongitudeRef");
+            if (latRef === "S" || lngRef === "W") {
                 lat = lat * -1
             }
             var mrk = L.marker([lat,lng]).addTo(markerGroup);
-            mrk.bindPopup("<img src='" + this.src + "' class='thumbnail'/>");
+            var popup = "<a href=" + this.src + "><img src='" + this.src + "' class='thumbnail'/></a>" +
+                '<br/>Picture by ' + author +
+                '<br/>Latitude: ' + lat + " " + latRef +
+                '<br/>Longitude: ' + lng + " " + lngRef;
+
+            mrk.bindPopup(popup);
         });
     }
 };
