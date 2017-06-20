@@ -62,6 +62,6 @@ window.onload = function () {
     var hash = new L.Hash(map);
 
     //load image data
-
+    var markerGroup = getExif();
     markerGroup.addTo(map);
 };
