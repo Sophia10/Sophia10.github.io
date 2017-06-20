@@ -7,9 +7,8 @@ function getExif() {
         console.log(img);
         EXIF.getData(img, function getLongitude() {
             var longitude = EXIF.getTag(this, "GPSLongitude");
-            //var location = document.getElementById("makeAndModel");
-            //location.innerHTML = longitude[0] + " " + latitude + " by " + author;
             console.log(longitude);
+            //Decimal Coordinates = degrees + (decimal minutes/60)
             var long = longitude[0] + (longitude[1] / 60);
             // add algebraic sign
             if (EXIF.getTag(this, "GPSLongitudeRef") === "W") {
@@ -20,9 +19,8 @@ function getExif() {
                 console.log("longitude: " + long);
                 return long;
             }
-            //DD = d + (min/60) + (sec/3600)
-
         });
+
         EXIF.getData(img, function getLatitude() {
             var latitude = EXIF.getTag(this, "GPSLatitude");
             var lat = latitude[0] + (latitude[1] / 60);
