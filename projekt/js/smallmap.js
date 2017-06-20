@@ -30,23 +30,23 @@ window.onload = function () {
         L.marker([65.993628, -18.532469], {
             title: "Island - Philipp and Yannick",
             icon: projectIcon
-        }).bindPopup('Iceland - Philipp' + '<br/><img src="flags/iceland.png" class="flag"/>'),
+        }).bindPopup('Iceland - Philipp' + '<br/><div style="text-align: center"><img src="flags/iceland.png" class="flag"/></div>'),
         L.marker([52.1682697, -9.7406013], {
             title: "Irland - Sophia",
             icon: projectIcon
-        }).bindPopup('Ireland - Sophia' + '<br/><img src="flags/ireland.png" class="flag"/>'),
+        }).bindPopup('Ireland - Sophia' + '<br/><div style="text-align: center"><img src="flags/ireland.png" class="flag"/></div>'),
         L.marker([49.7849845, 18.7959109], {
             title: "Polen - Sophia",
             icon: projectIcon
-        }).bindPopup('Poland - Sophia' + '<br/><img src="flags/poland.png" class="flag"/>'),
+        }).bindPopup('Poland - Sophia' + '<br/><div style="text-align: center"><img src="flags/poland.png" class="flag"/></div>'),
         L.marker([5.100463, 10.107226], {
             title: "Kamerun - Philipp",
             icon: projectIcon
-        }).bindPopup('Cameroon - Philipp' + '<br/><img src="flags/cameroon.png" class="flag"/>'),
+        }).bindPopup('Cameroon - Philipp' + '<br/><div style="text-align: center"><img src="flags/cameroon.png" class="flag"/></div>'),
         L.marker([49.490565, 5.8620932], {
             title: "Luxembourg - Yannick",
             icon: projectIcon
-        }).bindPopup('Luxembourg - Yannick' + '<br/><img src="flags/luxemburg.png" class="flag"/>')
+        }).bindPopup('Luxembourg - Yannick' + '<br/><div style="text-align: center"><img src="flags/luxemburg.png" class="flag"/></div>')
     ];
 
     var nextProjLayer = L.featureGroup();
@@ -54,4 +54,7 @@ window.onload = function () {
         nextProjLayer.addLayer(nextProj[i]);
     }
     nextProjLayer.addTo(smallmap);
+
+    //fit bounds to layer
+    smallmap.fitBounds(nextProjLayer.getBounds());
 };

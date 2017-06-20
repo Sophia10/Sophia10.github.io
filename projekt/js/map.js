@@ -77,13 +77,13 @@ window.onload = function () {
     for (var i = 0; i < allImages.length; i += 1) {
         console.log(allImages[i]);
         EXIF.getData(allImages[i], function () {
-            author = EXIF.getTag(this, "Copyright");
-            lat_arr = EXIF.getTag(this, "GPSLatitude");
-            lng_arr = EXIF.getTag(this, "GPSLongitude");
-            lat = lat_arr[0] + (lat_arr[1] / 60);
-            lng = lng_arr[0] + (lng_arr[1] / 60);
-            latRef = EXIF.getTag(this, "GPSLatitudeRef");
-            lngRef = EXIF.getTag(this, "GPSLongitudeRef");
+            var author = EXIF.getTag(this, "Copyright");
+            var lat_arr = EXIF.getTag(this, "GPSLatitude");
+            var lng_arr = EXIF.getTag(this, "GPSLongitude");
+            var lat = lat_arr[0] + (lat_arr[1] / 60);
+            var lng = lng_arr[0] + (lng_arr[1] / 60);
+            var latRef = EXIF.getTag(this, "GPSLatitudeRef");
+            var lngRef = EXIF.getTag(this, "GPSLongitudeRef");
             if (latRef === "S") {
                 lat = lat * -1
             }
