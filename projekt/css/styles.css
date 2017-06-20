@@ -92,3 +92,8 @@ p{
 .thumbnail {
     max-width: 200px;
 }
+.photographers {
+	img {
+    border-radius: 8px;
+}
+}
