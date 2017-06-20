@@ -93,7 +93,8 @@ p{
     max-width: 200px;
 }
 .photographers {
-	img {
     border-radius: 8px;
-}
+	width: 300px;
+	
+
 }
