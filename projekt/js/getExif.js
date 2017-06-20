@@ -9,17 +9,24 @@ function getExif() {
         iconAnchor: [16, 37]
     });
     var makeMarker = function () {
-        console.log('For-Schleife' + picLatitude + " " + picLongitude);
-        var marker = L.marker([picLongitude, picLatitude], {icon: pictureIcon});
+        console.log('For-Schleife' + getLatitude() + " " + getLatitude());
+        //var marker = L.marker([getLatitude(), getLatitude()], {icon: pictureIcon});
+
+        var popup = '<a href="img/RussiaSophia-6.jpg"><img src="img/RussiaSophia-6.jpg" id="img1" width = "200px"/></a>';
+        popup += '<br/>Sophia Paul';
+
+        var marker = L.marker([(59 + 57 / 60 + 0.4 / 60),
+            (30 + 20 / 60 + 54.3 / 60)], {icon: pictureIcon})
+            .bindPopup(popup);
         markerGroup.addLayer(marker);
         return markerGroup;
     };
 
-    var img = document.getElementById("img1");
+
     //for (var i = 1; i < pictures.length; i++) {
 
 
-    function getLongitude() {
+    /*function getLongitude() {
         var longitude = EXIF.getTag(this, "GPSLongitude");
         console.log(longitude);
         //Decimal Coordinates = degrees + (decimal minutes/60)
@@ -36,20 +43,8 @@ function getExif() {
     }
 
     var picLongitude = EXIF.getData(img, getLongitude());
-    console.log(picLongitude);
+     console.log(picLongitude);*/
     //for (var i = 1; i < pictures.length; i++) {
-    var picLatitude = EXIF.getData(img, function getLatitude() {
-        var latitude = EXIF.getTag(this, "GPSLatitude");
-        var picLat = latitude[0] + (latitude[1] / 60);
-        // add algebraic sign
-        if (EXIF.getTag(this, "GPSLatitudeRef") === "S") {
-            console.log("Latitude: " + picLat * -1);
-            -Math.abs(picLat);
-        } else {
-            console.log("latitude: " + picLat);
-        }
-        return picLat;
-    });
 
     return makeMarker();
 }

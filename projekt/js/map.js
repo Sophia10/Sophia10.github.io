@@ -61,7 +61,24 @@ window.onload = function () {
 // leaflet-hash aktivieren
     var hash = new L.Hash(map);
 
+    var markerGroup = L.featureGroup().addTo(map);
+
     //load image data
-    var markerGroup = getExif();
-    markerGroup.addTo(map);
+    var allImages = document.getElementsByClassName("pictures");
+    console.log(allImages);
+    for (var i = 0; i < allImages.length; i += 1) {
+        console.log(allImages[i])
+        EXIF.getData(allImages[i], function () {
+            // console.log("das Bild:",this)
+            lat_arr = EXIF.getTag(this, "GPSLatitude");
+            lng_arr = EXIF.getTag(this, "GPSLongitude");
+            lat = lat_arr[0] + (lat_arr[1] / 60);
+            lng = lng_arr[0] + (lng_arr[1] / 60);
+            if (EXIF.getTag(this, "GPSLatitudeRef") === "S") {
+                lat = lat * -1
+            }
+            var mrk = L.marker([lat,lng]).addTo(markerGroup);
+            mrk.bindPopup("<img src='" + this.src + "' class='thumbnail'/>");
+        });
+    }
 };
