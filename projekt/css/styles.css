@@ -88,3 +88,7 @@ p{
     opacity: 0.5;
     filter: alpha(opacity=50);
 }
+
+.thumbnail {
+    max-width: 200px;
+}
