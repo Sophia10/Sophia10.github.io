@@ -5,11 +5,8 @@ window.onload = function () {
             L.TileLayer.prototype.initialize.call(this, this.url, options);
         }
     });
+	
     var layers = {
-        bmaporthofoto30cm: L.tileLayer("https://{s}.wien.gv.at/basemap/bmaporthofoto30cm/normal/google3857/{z}/{y}/{x}.jpeg", {
-            subdomains: ['maps', 'maps1', 'maps2', 'maps3', 'maps4'],
-            attribution: 'Datenquelle: <a href="http://www.basemap.at/">basemap.at</a>'
-        }),
         osm: L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             subdomains: ['a', 'b', 'c'],
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'}),
@@ -20,11 +17,14 @@ window.onload = function () {
             maxZoom: 20,
             attribution: 'Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research Group @ University of Heidelberg</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }),
-
-        //Source: http://www.gebco.net/data_and_products/gebco_web_services/web_map_service/mapserv?request=getCapabilities&service=wms&version=1.3.0
-        gebco_14: L.tileLayer('http://www.gebco.net/data_and_products/gebco_web_services/web_map_service/mapserv?version=1.3.0&service=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=GEBCO_LATEST&format=image/png&STYLE=default', {
-            attribution: 'Imagery reproduced from the GEBCO Grid, version 2014, <a href="www.gebco.net">www.gebco.net</a>'
-        })
+		/*borders: L.GIBSLayer('Reference_Features', {
+            date: new Date('20.06.2017'),
+            transparent: true
+          })*/
+		/*NASA: new L.GIBSLayer('MODIS_Aqua_SurfaceReflectance_Bands721', {
+		setDate(date: '2015/04/01'),
+		transparent: true
+		})*/
     };
 
 // Karte definieren
@@ -40,14 +40,15 @@ window.onload = function () {
         metric: true,
         imperial: false
     }).addTo(map);
-
+	
+	
 // WMTS-Layer Auswahl hinzufügen
     var layerControl = L.control.layers({
         "Orthofoto (nur &Ouml;sterreich)": layers.bmaporthofoto30cm,
         "OpenStreetMap": layers.osm,
         "Orthophoto": layers.ortophoto,
-        "L&aumlnder-Topographie": layers.laender_topo
-        //"CloudMade": layers.cloudmade
+        "L&aumlnder-Topographie": layers.laender_topo,
+		//"NASA": layers.borders
     }).addTo(map);
 
 // leaflet-hash aktivieren
