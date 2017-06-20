@@ -6,7 +6,7 @@ window.onload = function () {
         }
     });
     var layers = {
-        Stamen_Watercolor : L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}', {
+        Stamen_Watercolor: L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}', {
             attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
             subdomains: 'abcd',
             minZoom: 1,
@@ -21,27 +21,32 @@ window.onload = function () {
         center: [25.8, 7.4], //center world map
         zoom: 1
     });
-
+    var projectIcon = L.icon({
+        iconUrl: 'icons/nextProj.png',
+        iconAnchor: [16, 37],
+        popupAnchor: [1, -34]
+    });
     var nextProj = [
         L.marker([65.993628, -18.532469], {
-            title: "Island - Philipp",
-            icon: L.icon({iconUrl: 'icons/nextProj.png', iconAnchor: [16, 37]})
-        }).bindPopup('Island - Philipp'),
+            title: "Island - Philipp and Yannick",
+            icon: projectIcon
+        }).bindPopup('Iceland - Philipp' + '<br/><img src="flags/iceland.png" class="flag"/>'),
         L.marker([52.1682697, -9.7406013], {
             title: "Irland - Sophia",
-            icon: L.icon({iconUrl: 'icons/nextProj.png', iconAnchor: [16, 37]})
-        }).bindPopup('Irland - Sophia'),
+            icon: projectIcon
+        }).bindPopup('Ireland - Sophia' + '<br/><img src="flags/ireland.png" class="flag"/>'),
         L.marker([49.7849845, 18.7959109], {
             title: "Polen - Sophia",
-            icon: L.icon({iconUrl: 'icons/nextProj.png', iconAnchor: [16, 37]})
-        }).bindPopup('Polen - Sophia'),
+            icon: projectIcon
+        }).bindPopup('Poland - Sophia' + '<br/><img src="flags/poland.png" class="flag"/>'),
         L.marker([5.100463, 10.107226], {
             title: "Kamerun - Philipp",
-            icon: L.icon({iconUrl: 'icons/nextProj.png', iconAnchor: [16, 37]})
-        }).bindPopup('Kamerun - Philipp'),
+            icon: projectIcon
+        }).bindPopup('Cameroon - Philipp' + '<br/><img src="flags/cameroon.png" class="flag"/>'),
         L.marker([49.490565, 5.8620932], {
-            title: "Luxembourg - Yannick", icon: L.icon({iconUrl: 'icons/nextProj.png', iconAnchor: [16, 37]})
-        }).bindPopup('Luxembourg - Yannick')
+            title: "Luxembourg - Yannick",
+            icon: projectIcon
+        }).bindPopup('Luxembourg - Yannick' + '<br/><img src="flags/luxemburg.png" class="flag"/>')
     ];
 
     var nextProjLayer = L.featureGroup();

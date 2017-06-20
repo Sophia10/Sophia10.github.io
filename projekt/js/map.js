@@ -61,6 +61,9 @@ window.onload = function () {
 // leaflet-hash aktivieren
     var hash = new L.Hash(map);
 
+// Marker cluster
+    var cluster_group = L.markerClusterGroup();
+
     var markerGroup = L.featureGroup().addTo(map);
 
     //load image data and make marker and popup
@@ -68,7 +71,8 @@ window.onload = function () {
     console.log(allImages);
     var pictureIcon = L.icon({
         iconUrl: 'icons/picture.png',
-        iconAnchor: [16, 37]
+        iconAnchor: [16, 37],
+        popupAnchor: [1, -34]
     });
     for (var i = 0; i < allImages.length; i += 1) {
         console.log(allImages[i]);
@@ -86,13 +90,14 @@ window.onload = function () {
             if (lngRef === "W") {
                 lng = lng * -1
             }
-            var mrk = L.marker([lat, lng], {icon: pictureIcon}).addTo(markerGroup);
+            var mrk = L.marker([lat, lng], {icon: pictureIcon});
             var popup = "<a href=" + this.src + "><img src='" + this.src + "' class='thumbnail'/></a>" +
                 '<br/>Picture by <a href="photographers.html">' + author + '<a/>' +
                 '<br/>Latitude: ' + lat + " " + latRef +
                 '<br/>Longitude: ' + lng + " " + lngRef;
 
-            mrk.bindPopup(popup);
+            mrk.bindPopup(popup).addTo(cluster_group);
+            cluster_group.addTo(map);
         });
     }
 };

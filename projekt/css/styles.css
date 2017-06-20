@@ -94,6 +94,11 @@ p{
 .thumbnail {
     max-width: 200px;
 }
+
+.flag {
+    max-width: 50px;
+    align: "center";
+}
 .photographers {
     border-radius: 8px;
 	width: 300px; 
