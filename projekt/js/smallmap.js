@@ -26,22 +26,22 @@ window.onload = function () {
         L.marker([65.993628, -18.532469], {
             title: "Island - Philipp",
             icon: L.icon({iconUrl: 'icons/nextProj.png', iconAnchor: [16, 37]})
-        }),
+        }).bindPopup('Island - Philipp'),
         L.marker([52.1682697, -9.7406013], {
             title: "Irland - Sophia",
             icon: L.icon({iconUrl: 'icons/nextProj.png', iconAnchor: [16, 37]})
-        }),
+        }).bindPopup('Irland - Sophia'),
         L.marker([49.7849845, 18.7959109], {
             title: "Polen - Sophia",
             icon: L.icon({iconUrl: 'icons/nextProj.png', iconAnchor: [16, 37]})
-        }),
+        }).bindPopup('Polen - Sophia'),
         L.marker([5.100463, 10.107226], {
             title: "Kamerun - Philipp",
             icon: L.icon({iconUrl: 'icons/nextProj.png', iconAnchor: [16, 37]})
-        }),
+        }).bindPopup('Kamerun - Philipp'),
         L.marker([49.490565, 5.8620932], {
             title: "Luxembourg - Yannick", icon: L.icon({iconUrl: 'icons/nextProj.png', iconAnchor: [16, 37]})
-        })
+        }).bindPopup('Luxembourg - Yannick')
     ];
 
     var nextProjLayer = L.featureGroup();
