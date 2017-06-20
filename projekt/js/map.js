@@ -6,10 +6,6 @@ window.onload = function () {
         }
     });
     var layers = {
-        bmaporthofoto30cm: L.tileLayer("https://{s}.wien.gv.at/basemap/bmaporthofoto30cm/normal/google3857/{z}/{y}/{x}.jpeg", {
-            subdomains: ['maps', 'maps1', 'maps2', 'maps3', 'maps4'],
-            attribution: 'Datenquelle: <a href="http://www.basemap.at/">basemap.at</a>'
-        }),
         osm: L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             subdomains: ['a', 'b', 'c'],
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'}),
@@ -43,11 +39,9 @@ window.onload = function () {
 
 // WMTS-Layer Auswahl hinzufügen
     var layerControl = L.control.layers({
-        "Orthofoto (nur &Ouml;sterreich)": layers.bmaporthofoto30cm,
         "OpenStreetMap": layers.osm,
         "Orthophoto": layers.ortophoto,
         "L&aumlnder-Topographie": layers.laender_topo
-        //"CloudMade": layers.cloudmade
     }).addTo(map);
 
 // leaflet-hash aktivieren

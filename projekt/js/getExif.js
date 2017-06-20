@@ -7,7 +7,7 @@ function getExif() {
         var latitude = EXIF.getTag(this, "GPSLongitude");
         var author = EXIF.getTag(this, "Copyright");
         var location = document.getElementById("makeAndModel");
-        location.innerHTML = longitude[0] + " " + latitude + "by " + author;
+        location.innerHTML = longitude[0] + " " + latitude + " by " + author;
     });
 
     var img2 = document.getElementById("img2");
