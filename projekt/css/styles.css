@@ -94,7 +94,10 @@ p{
 }
 .photographers {
     border-radius: 8px;
-	width: 300px;
+	width: 300px; 
 	
 
+}
+.table {
+	width: 60%;
 }
