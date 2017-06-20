@@ -63,9 +63,13 @@ window.onload = function () {
 
     var markerGroup = L.featureGroup().addTo(map);
 
-    //load image data
+    //load image data and make marker and popup
     var allImages = document.getElementsByClassName("pictures");
     console.log(allImages);
+    var pictureIcon = L.icon({
+        iconUrl: 'icons/picture.png',
+        iconAnchor: [16, 37]
+    });
     for (var i = 0; i < allImages.length; i += 1) {
         console.log(allImages[i]);
         EXIF.getData(allImages[i], function () {
@@ -76,12 +80,15 @@ window.onload = function () {
             lng = lng_arr[0] + (lng_arr[1] / 60);
             latRef = EXIF.getTag(this, "GPSLatitudeRef");
             lngRef = EXIF.getTag(this, "GPSLongitudeRef");
-            if (latRef === "S" || lngRef === "W") {
+            if (latRef === "S") {
                 lat = lat * -1
             }
-            var mrk = L.marker([lat,lng]).addTo(markerGroup);
+            if (lngRef === "W") {
+                lng = lng * -1
+            }
+            var mrk = L.marker([lat, lng], {icon: pictureIcon}).addTo(markerGroup);
             var popup = "<a href=" + this.src + "><img src='" + this.src + "' class='thumbnail'/></a>" +
-                '<br/>Picture by ' + author +
+                '<br/>Picture by <a href="photographers.html">' + author + '<a/>' +
                 '<br/>Latitude: ' + lat + " " + latRef +
                 '<br/>Longitude: ' + lng + " " + lngRef;
 

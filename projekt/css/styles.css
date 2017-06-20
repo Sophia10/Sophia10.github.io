@@ -45,6 +45,7 @@ html, body{
     width: 512px;
     float: right;
     margin: 20px;
+    clear: right;
 }
 h1{
     font-family: "Book Antiqua", "serif";
@@ -77,10 +78,11 @@ p{
 }
 
 .pictures {
-    max-width: 400px;
-    height: auto;
     padding: 5px;
     border-radius: 15px;
+    object-fit: cover;
+    width: 230px;
+    height: 230px;
 }
 
 .pictures:hover {
@@ -96,9 +98,18 @@ p{
     border-radius: 8px;
 	width: 300px; 
 }
-#tablephotographers {
-	max-width: 40%;
+
+table#tablePhotographers {
+
+    vertical-align: center;
 }
-#tableabout {
-	position: center;
+
+table#tableabout {
+    padding: 20px;
+    text-align: center;
+    margin: auto;
+}
+
+h3 {
+    text-align: center;
 }
