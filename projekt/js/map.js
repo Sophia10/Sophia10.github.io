@@ -18,17 +18,18 @@ window.onload = function () {
             maxZoom: 20,
             attribution: 'Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research Group @ University of Heidelberg</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }),
-        borders: L.GIBSLayer('Reference_Features', {
-            date: new Date('20.06.2017'),
-            transparent: true
-        }),
+
         NASA: new L.GIBSLayer('BlueMarble_ShadedRelief', {
-            date: new Date('2017/06/20'),
+            date: new Date('currentDate'),
             transparent: true
         }),
         night: new L.GIBSLayer('VIIRS_CityLights_2012', {
-            date: new Date('2017/06/20'),
+            date: new Date('currentDate'),
             transparent: true
+        }),
+        opentopo: new L.tileLayer('http://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+            maxZoom: 17,
+            attribution: 'Map data: &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
         })
     };
 
@@ -52,7 +53,7 @@ window.onload = function () {
         //"Orthophoto": layers.ortophoto,
         "Blue Marble": layers.NASA,
         "L&aumlnder-Topographie": layers.laender_topo,
-        "Country Borders": layers.borders,
+        "OpenTopoMap": layers.opentopo,
         "World at night": layers.night,
         "OpenStreetMap": layers.osm
     }).addTo(map);
@@ -61,7 +62,6 @@ window.onload = function () {
     var hash = new L.Hash(map);
 
     //load image data
-    getExif();
 
-
+    markerGroup.addTo(map);
 };
