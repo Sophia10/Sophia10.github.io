@@ -95,9 +95,10 @@ p{
 .photographers {
     border-radius: 8px;
 	width: 300px; 
-	
-
 }
-table {
-	width: 40%;
+#tablephotographers {
+	max-width: 40%;
+}
+#tableabout {
+	position: center;
 }
